@@ -15,7 +15,7 @@ object TextFileStream {
 
   def main(args: Array[String]) {
 
-    val conf = new SparkConf().setAppName("TextFileStream").setMaster("local[2]")
+    val conf = new SparkConf().setAppName("TextFileStream").setMaster("local[3]")
     //设置数据自动覆盖
     conf.set("spark.hadoop.validateOutputSpecs", "false")
 
@@ -24,6 +24,8 @@ object TextFileStream {
 
     //实时监听hdfs文件夹
     val lines = ssc.textFileStream("/project/edu_edcc/ztwu2/temp/spark-stream/")
+    println("读取数据。。。。")
+    lines.map(x=>println(x))
     val wordCount = lines.flatMap(_.split(" ")).map(x => (x,1)).reduceByKey(_+_)
     wordCount.print()
 

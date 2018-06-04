@@ -22,7 +22,7 @@ object MyDStream {
     //其中自订阅接收器类实例的第一个参数“hadoop01”代表自定义数据源服务端的ip或者主机名，第二个参数代表8888代表数据源服务端的端口号，第三个参数false代表不启动超时设置，第四个参数0代表超时时间。
     val stream = ssc.receiverStream(new MyReceiver("127.0.0.1",9999))
 
-    stream.flatMap(x=>x.split("")).map(word=>(word,1)).reduceByKey((x,y)=>{x+y}).print()
+    stream.flatMap(x=>x.split(" ")).map(word=>(word,1)).reduceByKey((x,y)=>{x+y}).print()
 
     ssc.start()
     ssc.awaitTermination()

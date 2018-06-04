@@ -10,6 +10,7 @@ object QueueStream {
   def main(args: Array[String]) {
 
     val sparkConf = new SparkConf().setAppName("QueueStream")
+    sparkConf.setMaster("local[3]")
     val ssc = new StreamingContext(sparkConf, Seconds(1))
 
     val rddQueue = new Queue[RDD[Int]]()
